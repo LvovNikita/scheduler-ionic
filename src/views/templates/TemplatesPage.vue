@@ -8,11 +8,49 @@
         <ion-content :fullscreen="true">
             <ion-header collapse="condense">
                 <ion-toolbar>
-                    <ion-title size="large">Tab 2</ion-title>
+                    <ion-title size="large">Templates</ion-title>
                 </ion-toolbar>
             </ion-header>
+        
+            <!-- TEMPLATES LIST -->
+            <ion-list>
+                <ion-item v-for="template of templates" :key="template.id">
+                    <!-- FIXME: -->
+                    <ion-label>
+                        <router-link :to="{ name: 'templateDetails', params: { id: template.id } }">
+                            {{ template.name }}
+                        </router-link>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+
+            <ion-modal ref="modal" trigger="open_modal_btn">
+                <ion-header>
+                    <ion-toolbar>
+                        <ion-buttons slot="start">
+                            <ion-button @click="closeModal()">Cancel</ion-button>
+                        </ion-buttons>
+                        <ion-title>Create new template</ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button @click="createNewTemplate()">Confirm</ion-button>
+                        </ion-buttons>
+                    </ion-toolbar>
+                </ion-header>
+                <ion-content :fullscreen="true">
+                    <ion-item>
+                        <ion-label>Name</ion-label>
+                        <ion-input 
+                            v-model="newTemplateName" 
+                            type="text" 
+                        >
+                        </ion-input>
+                    </ion-item>
+                </ion-content>
+            </ion-modal>
+        
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-fab-button @click="newTemplate()">
+                <!-- <ion-fab-button @click="newTemplate()"> -->
+                <ion-fab-button id="open_modal_btn">
                     <ion-icon :icon="add"></ion-icon>
                 </ion-fab-button>
             </ion-fab>
@@ -23,6 +61,8 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
 
+    import { mapState } from 'vuex'
+
     import { 
         IonPage,
         IonHeader,
@@ -30,7 +70,15 @@
         IonTitle,
         IonContent,
         IonFab,
-        IonFabButton 
+        IonFabButton,
+        IonIcon,
+        IonList,
+        IonItem,
+        IonLabel,
+        IonModal,
+        IonInput,
+        IonButtons,
+        IonButton,
     } from '@ionic/vue';
 
     import { add } from 'ionicons/icons'
@@ -44,11 +92,38 @@
             IonContent,
             IonPage,
             IonFab,
-            IonFabButton
+            IonFabButton,
+            IonIcon,
+            IonList,
+            IonItem,
+            IonLabel,
+            IonModal,
+            IonInput,
+            IonButtons,
+            IonButton
         },
+        data() {
+            return {
+                newTemplateName: ''
+            }
+        },
+        computed: mapState([
+            'templates'
+        ]),
         methods: {
             newTemplate() {
-                this.$router.push('/new-template')
+                // this.$router.push('/new-template')
+            },
+            closeModal() {
+                (this.$refs as any).modal.$el.dismiss(null, 'cancel') 
+            },
+            createNewTemplate() {
+                this.$store.commit('addTemplate', { 
+                    id: Date.now() , 
+                    name: this.newTemplateName 
+                });
+                this.newTemplateName = '';
+                (this.$refs as any).modal.$el.dismiss(null, 'confirm');
             }
         },
         setup() {
