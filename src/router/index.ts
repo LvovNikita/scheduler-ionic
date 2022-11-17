@@ -16,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 name: 'schedule',
                 path: 'schedule',
-                component: () => import('@/views/SchedulePage.vue'),
+                component: () => import('@/views/scheduler/SchedulePage.vue'),
             },
             {
                 name: 'templates',
@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 name: 'calendar',
                 path: 'calendar',
-                component: () => import('@/views/CalendarPage.vue'),
+                component: () => import('@/views/calendar/CalendarPage.vue'),
             },
             {
                 name: 'templateDetails',

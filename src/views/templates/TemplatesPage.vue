@@ -24,7 +24,8 @@
                 </ion-item>
             </ion-list>
 
-            <ion-modal ref="modal" trigger="open_modal_btn">
+            <!-- TODO: make modal component! -->
+            <ion-modal ref="modal" trigger="open_tmpl_modal_btn">
                 <ion-header>
                     <ion-toolbar>
                         <ion-buttons slot="start">
@@ -50,7 +51,7 @@
         
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <!-- <ion-fab-button @click="newTemplate()"> -->
-                <ion-fab-button id="open_modal_btn">
+                <ion-fab-button id="open_tmpl_modal_btn">
                     <ion-icon :icon="add"></ion-icon>
                 </ion-fab-button>
             </ion-fab>

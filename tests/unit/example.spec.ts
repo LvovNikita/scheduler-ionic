@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Tab1Page from '@/views/SchedulePage.vue';
+import Tab1Page from '@/views/scheduler/SchedulePage.vue';
 
 describe('Tab1Page.vue', () => {
     it('renders tab 1 Tab1Page', () => {
